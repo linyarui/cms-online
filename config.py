@@ -20,6 +20,10 @@ class Config:
     SQLALCHEMY_POOL_SIZE = 100
     CSRF_ENABLED = True
 
+    USER_ID = 'USERID'
+    CMS_USER_ID = 'CMSUSERID'
+    PERMANENT_SESSION_LIFETIME = timedelta(seconds=6 * 60 * 60)
+
 
 class DevConfig(Config):
     DEBUG = True

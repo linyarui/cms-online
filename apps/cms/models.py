@@ -1,20 +1,20 @@
 from exts import db
 from datetime import datetime
 # 加密函数, generate_password_hash哈希,check_password_hash检测密码是否一致
-from werkzeug.security import  generate_password_hash,check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 # 创建cms用户数据库模型
 class CMSUser(db.Model):
     # 设置表名
     __tablename__ = 'cms_user'
-    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
-    username = db.Column(db.String(50),nullable=False)
-    _password = db.Column(db.String(100),nullable=False)
-    email = db.Column(db.String(50),nullable=False,unique=True)
-    join_time = db.Column(db.DateTime,default=datetime.now)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String(50), nullable=False)
+    _password = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(50), nullable=False, unique=True)
+    join_time = db.Column(db.DateTime, default=datetime.now)
 
-    def __init__(self,username,password,email):
+    def __init__(self, username, password, email):
         self.username = username
         self.password = password
         self.email = email
@@ -27,13 +27,13 @@ class CMSUser(db.Model):
 
     # 重新定义设置方法
     @password.setter
-    def password(self,raw_password):
+    def password(self, raw_password):
         # 加密
         self._password = generate_password_hash(raw_password)
 
-    def check_password(self,raw_password):
+    def check_password(self, raw_password):
         # 原始密码和加密后的密码是否一致
-        result = check_password_hash(self._password,raw_password)
+        result = check_password_hash(self._password, raw_password)
         return result
 
 # 重写密码字段
